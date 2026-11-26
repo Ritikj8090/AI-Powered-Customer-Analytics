@@ -39,7 +39,7 @@ from sklearn.preprocessing import StandardScaler
 from sqlalchemy import text
 from xgboost import XGBClassifier
 
-from db import copy_insert, get_engine
+from db import copy_insert, get_engine, save_metrics
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT_DIR = ROOT / "outputs"
@@ -385,6 +385,7 @@ def run(target: str = "churn", horizon: int = 180) -> dict:
         scores = save_churn_scores(final, X_now, current, engine)
         print(f"  churn_scores table: {len(scores):,} customers")
     (OUT_DIR / f"{target}_metrics.json").write_text(json.dumps(metrics, indent=2))
+    save_metrics(engine, target, metrics)
 
     print(f"\n=== Results: {target} (out-of-time test set) ===")
     print(pd.DataFrame({k: metrics[k] for k in ["xgboost", "logistic_regression"]}).to_string())

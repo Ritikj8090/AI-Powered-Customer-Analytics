@@ -1,0 +1,12 @@
+# Lightweight dependencies for the deployed dashboard (Streamlit Community Cloud).
+# The ML pipeline runs locally; the dashboard only reads its results.
+streamlit>=1.40
+pandas>=2.0
+numpy>=1.24
+sqlalchemy>=2.0
+psycopg2-binary>=2.9
+python-dotenv>=1.0
+plotly>=5.20
+requests>=2.31
+anthropic>=0.40
+openai>=1.50

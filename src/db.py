@@ -31,6 +31,26 @@ def get_engine() -> Engine:
     return create_engine(url)
 
 
+def save_metrics(engine, name: str, metrics: dict) -> None:
+    """Store a model's headline metrics so the dashboard can show them."""
+    import json
+
+    from sqlalchemy import text
+
+    with engine.begin() as conn:
+        conn.execute(text("""
+            CREATE TABLE IF NOT EXISTS model_metrics (
+                name        TEXT PRIMARY KEY,
+                metrics     JSONB NOT NULL,
+                updated_at  TIMESTAMP DEFAULT NOW())"""))
+        conn.execute(text("""
+            INSERT INTO model_metrics (name, metrics, updated_at)
+            VALUES (:name, CAST(:metrics AS JSONB), NOW())
+            ON CONFLICT (name) DO UPDATE
+               SET metrics = EXCLUDED.metrics, updated_at = NOW()"""),
+            {"name": name, "metrics": json.dumps(metrics, default=str)})
+
+
 def copy_insert(table, conn, keys, data_iter):
     """pandas.to_sql 'method' that uses PostgreSQL COPY.
 
