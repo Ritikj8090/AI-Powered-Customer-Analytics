@@ -1,0 +1,8 @@
+rfm_segment,customers,avg_recency_days,avg_frequency,avg_monetary,revenue,avg_review_score,late_share,customer_share_pct,revenue_share_pct
+New Big Spenders,14414,90.9,1.0,302.16,4355349.45,4.13,0.07,15.44,28.25
+At Risk High Value,13773,393.36,1.0,307.8,4239272.71,4.12,0.06,14.75,27.49
+Needs Attention,18070,219.48,1.0,151.41,2736048.23,4.0,0.1,19.36,17.74
+Hibernating,22574,395.15,1.0,72.7,1641023.23,4.2,0.05,24.18,10.64
+Promising,21726,89.33,1.0,72.9,1583892.67,4.25,0.06,23.27,10.27
+Loyal Customers,1598,318.87,2.08,297.9,476040.93,4.14,0.06,1.71,3.09
+Champions,1203,88.22,2.15,322.65,388146.53,4.29,0.06,1.29,2.52

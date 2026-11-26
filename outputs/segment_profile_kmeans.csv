@@ -1,0 +1,4 @@
+cluster_name,customers,avg_recency_days,avg_frequency,avg_monetary,revenue,avg_review_score,late_share,customer_share_pct,revenue_share_pct
+Average Customers,71411,289.01,1.0,159.48,11388475.37,4.11,0.08,76.49,73.86
+Recent Buyers,19146,47.85,1.0,165.42,3167110.92,4.31,0.04,20.51,20.54
+Loyal Repeat Buyers,2801,219.81,2.11,308.53,864187.46,4.21,0.06,3.0,5.6

@@ -12,15 +12,13 @@ Usage
     python src/load_data.py --data-dir path/to/csvs
 """
 import argparse
-import csv
-import io
 import time
 from pathlib import Path
 
 import pandas as pd
 from sqlalchemy import text
 
-from db import get_engine
+from db import copy_insert, get_engine
 
 ROOT = Path(__file__).resolve().parent.parent
 SQL_DIR = ROOT / "sql"
@@ -62,22 +60,6 @@ PRIMARY_KEYS = {
     "order_payments": ["order_id", "payment_sequential"],
     "order_reviews": ["review_id", "order_id"],
 }
-
-
-def copy_insert(table, conn, keys, data_iter):
-    """pandas.to_sql 'method' that uses PostgreSQL COPY.
-
-    Much faster than row-by-row INSERTs (the geolocation file alone
-    has ~1M rows).
-    """
-    dbapi_conn = conn.connection
-    with dbapi_conn.cursor() as cur:
-        buf = io.StringIO()
-        csv.writer(buf).writerows(data_iter)
-        buf.seek(0)
-        columns = ", ".join(f'"{k}"' for k in keys)
-        name = f"{table.schema}.{table.name}" if table.schema else table.name
-        cur.copy_expert(f"COPY {name} ({columns}) FROM STDIN WITH CSV", buf)
 
 
 def read_and_clean(table: str, path: Path, date_cols: list[str]) -> pd.DataFrame:
